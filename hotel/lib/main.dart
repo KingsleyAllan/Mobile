@@ -1,33 +1,42 @@
-// import 'package:flutter_hotel/screens/signin.dart';
-
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hotel/presentation/screens/home.dart';
+import 'package:hotel/presentation/screens/login.dart';
+import 'package:hotel/presentation/screens/profile.dart';
+import 'package:hotel/presentation/screens/register.dart';
+import 'package:hotel/theme/theme.dart';
+import 'firebase_options.dart';
+import 'package:provider/provider.dart';
+import 'package:hotel/providers/auth_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthProvider(),
+      child: const Hotel(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Hotel extends StatelessWidget {
+  const Hotel({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'DTB Mobile Banking',
-      home: Scaffold(
-        appBar: AppBar(
-          leading: const Icon(Icons.arrow_back_ios),
-        ),
-        body: const Padding(
-          padding: EdgeInsets.all(16.0),
-          // child: SigninScreen(),
-        ),
-      ),
+      theme: AppTheme.lightTheme,
+      title: 'Hotel Card',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(title: ''),
+        '/signup': (context) => const SignUpScreen(),
+        '/login':(context) => const LoginScreen(),
+        '/profile':(context) => const ProfileScreen(),
+      },
     );
   }
 }
