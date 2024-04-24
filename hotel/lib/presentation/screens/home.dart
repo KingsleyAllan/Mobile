@@ -6,6 +6,7 @@ class MyHomePage extends StatelessWidget {
   const MyHomePage({required this.title, super.key});
 
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -97,13 +98,13 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.search_sharp), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.bed_sharp), label: 'Settings'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp), label: 'Profile')
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(icon: Icon(Icons.search_sharp), label: 'Home'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.bed_sharp), label: 'Settings'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person_outline_sharp), label: 'Profile')
+      //   ],
+      // ),
     );
   }
 }

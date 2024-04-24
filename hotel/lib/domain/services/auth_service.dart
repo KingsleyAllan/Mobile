@@ -1,16 +1,104 @@
+// // ignore_for_file: use_build_context_synchronously
+
+// import 'package:awesome_dialog/awesome_dialog.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:hotel/domain/models/user_model.dart';
+// import 'package:flutter/material.dart';
+
+// class AuthService {
+//   final FirebaseAuth _auth = FirebaseAuth.instance;
+//   final FirebaseFirestore_firestore = FirebaseFirestore.instance;
+
+//   // Create user with email and password
+//   Future<UserModel?> createUserWithEmailAndPassword(
+//       BuildContext context, String fname, String lname, String email, String password) async {
+//     try {
+//       UserCredential userCredential =
+//         await _auth.createUserWithEmailAndPassword(
+//           email: email,
+//           password: password,
+//       );
+
+//       User? user = userCredential.user;
+//       return UserModel(uid: user?.uid, email: user?.email);
+//     } on FirebaseAuthException catch (e) {
+//       // Handle specific FirebaseAuthException errors
+//       String errorMessage = '';
+//       switch (e.code) {
+//         case 'weak-password':
+//           errorMessage = 'The password provided is too weak.';
+//           break;
+//         case 'email-already-in-use':
+//           errorMessage = 'This email is already being used by another account.';
+//           break;
+//         default:
+//           errorMessage = 'An error occurred during account creation.';
+//       }
+
+//       AwesomeDialog(
+//         context: context,
+//         dialogType: DialogType.info,
+//         animType: AnimType.rightSlide,
+//         title: 'Error',
+//         desc: errorMessage,
+//         btnOkOnPress: () {},
+//       ).show();
+//       return null;
+//     }
+//   }
+
+//   // Sign in with email and password
+//   Future<UserModel?> signInWithEmailAndPassword(
+//       BuildContext context, String email, String password) async {
+//     try {
+//       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+//         email: email,
+//         password: password,
+//       );
+//       User? user = userCredential.user;
+//       return UserModel(uid: user?.uid, email: user?.email);
+//     } on FirebaseAuthException catch (e) {
+//       // Handle specific FirebaseAuthException errors
+//       String errorMessage = '';
+//       switch (e.code) {
+//         case 'user-not-found':
+//           errorMessage = 'No user found with that email.';
+//           break;
+//         case 'wrong-password':
+//           errorMessage = 'Wrong password provided for that user.';
+//           break;
+//         default:
+//           errorMessage = 'An error occurred while signing in.';
+//       }
+
+//       AwesomeDialog(
+//         context: context,
+//         dialogType: DialogType.info,
+//         animType: AnimType.rightSlide,
+//         title: 'Error',
+//         desc: errorMessage,
+//         btnOkOnPress: () {},
+//       ).show();
+//       return null;
+//     }
+//   }
+// }
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hotel/domain/models/user_model.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Create user with email and password
-  Future<UserModel?> createUserWithEmailAndPassword(
-      BuildContext context, String email, String password) async {
+  Future<UserModel?> createUserWithEmailAndPassword(BuildContext context,
+      String fname, String lname, String email, String password) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -18,7 +106,27 @@ class AuthService {
         password: password,
       );
       User? user = userCredential.user;
-      return UserModel(uid: user?.uid, email: user?.email);
+      //debugPrint('user: $user');
+      final userModel = UserModel(
+        uid: userCredential.user!.uid,
+        fname: fname,
+        lname: lname,
+        email: userCredential.user!.email ?? '',
+      );
+      // Create a new user document in Firestore
+      try {
+        await _firestore
+            .collection('users')
+            .doc(user!.uid)
+            .set(userModel.toJson());
+        debugPrint('done');
+      } catch (e) {
+        // Handle Firestore error
+        debugPrint('Error creating user document: $e');
+        rethrow;
+      }
+      return UserModel(
+          uid: user.uid, fname: fname, lname: lname, email: user.email ?? '');
     } on FirebaseAuthException catch (e) {
       // Handle specific FirebaseAuthException errors
       String errorMessage = '';
@@ -32,7 +140,6 @@ class AuthService {
         default:
           errorMessage = 'An error occurred during account creation.';
       }
-      
       AwesomeDialog(
         context: context,
         dialogType: DialogType.info,
@@ -54,7 +161,12 @@ class AuthService {
         password: password,
       );
       User? user = userCredential.user;
-      return UserModel(uid: user?.uid, email: user?.email);
+      return UserModel(
+        uid: user?.uid ?? '',
+        fname: '',
+        lname: '',
+        email: user?.email ?? '',
+      );
     } on FirebaseAuthException catch (e) {
       // Handle specific FirebaseAuthException errors
       String errorMessage = '';

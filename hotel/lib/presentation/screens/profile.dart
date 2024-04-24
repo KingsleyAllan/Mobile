@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Welcome, ${user?.email ?? 'Guest'}',
+              'Welcome, ${user?.fname ?? 'Guest'}',
               style: const TextStyle(fontSize: 20),
             ),
           ],
