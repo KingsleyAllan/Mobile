@@ -49,51 +49,53 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
 
-            // Padding(
-            //   padding: const EdgeInsets.all(10.0), // Adjust the value as needed
-            //   child: SizedBox(
-            //     height: 200, // Adjust height as needed
-            //     child: ListView(
-            //       // This next line does the trick.
-            //       scrollDirection: Axis.horizontal,
-            //       children: <Widget>[
-            //         Container(
-            //           width: 200,
-            //           color: Colors.red,
-            //         ),
-            //         const SizedBox(width: 15),
-            //         Container(
-            //           width: 200,
-            //           color: Colors.blue,
-            //         ),
-            //         const SizedBox(width: 15,),
-            //         Container(
-            //           width: 200,
-            //           color: Colors.green,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // )
+            Padding(
+              padding: const EdgeInsets.all(10.0), // Adjust the value as needed
+              child: SizedBox(
+                height: 200, // Adjust height as needed
+                child: ListView(
+                  // This next line does the trick.
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    Container(
+                      width: 200,
+                      color: Colors.white,
+                      
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  child: const Text('Login'),
+                    ),
+                    const SizedBox(width: 15),
+                    Container(
+                      width: 200,
+                      color: Colors.blue,
+                    ),
+                    const SizedBox(width: 15,),
+                    Container(
+                      width: 200,
+                      color: Colors.green,
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/signup');
-                  },
-                  child: const Text('Sign up'),
-                ),
-              ],
-            ),
+              ),
+            )
+
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         Navigator.pushNamed(context, '/login');
+            //       },
+            //       child: const Text('Login'),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         Navigator.pushNamed(context, '/signup');
+            //       },
+            //       child: const Text('Sign up'),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

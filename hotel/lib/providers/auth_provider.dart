@@ -12,8 +12,8 @@ class AuthProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
   bool get isLoggedIn => _isLoggedIn; // Expose the login status
 
-  Future<void> createUserWithEmailAndPassword(
-      BuildContext context, String fname, String lname, String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(BuildContext context,
+      String fname, String lname, String email, String password) async {
     UserModel? createdUser = await _authService.createUserWithEmailAndPassword(
         context, fname, lname, email, password);
     if (createdUser != null) {
@@ -40,5 +40,13 @@ class AuthProvider extends ChangeNotifier {
       _errorMessage = "An error occurred while signing in.";
       notifyListeners();
     }
+  }
+
+  Future signOut(BuildContext context) async {
+    await _authService.signOut(context);
+    // ignore: use_build_context_synchronously
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    _isLoggedIn = false;
+    notifyListeners();
   }
 }
