@@ -26,12 +26,11 @@ class AdminScreen extends StatelessWidget {
           child: Form(
             key: _formKey, // Apply the form key
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Left-align elements
+              crossAxisAlignment: CrossAxisAlignment.start, // Left-align elements
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  'SIGN IN TO YOUR ACCOUNT',
+                  'WELCOME ADMIN',
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -123,39 +122,6 @@ class AdminScreen extends StatelessWidget {
                   obscureText: true, // Obscure password by default
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  // Align elements to the right for "Remember me" and "Forgot password?"
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Optional checkbox for "Remember me" functionality
-                    // Row(
-                    //   children: [
-                    //     Checkbox(
-                    //       value: _rememberMe,
-                    //       onChanged: (value) {
-                    //         setState(() => _rememberMe = value!);
-                    //       },
-                    //     ),
-                    Text('Remember me',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 16,
-                            )),
-                    //   ],
-                    // ),
-                    TextButton(
-                      onPressed: () {
-                        // Handle "Forgot password?" functionality (e.g., navigate to password reset)
-                        // You can use a navigation package like Navigator.pushNamed(context, '/forgotPassword');
-                      },
-                      child: Text('Forgot your password?',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontSize: 14,
-                                  )),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
@@ -172,8 +138,7 @@ class AdminScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                     minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          5), // Reduce the roundness of the borders
+                      borderRadius: BorderRadius.circular(5), // Reduce the roundness of the borders
                     ),
                   ),
                   child: Text(
@@ -185,23 +150,6 @@ class AdminScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Don\'t have an account?',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/signup'),
-                      child: Text('Create New Account',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontSize: 14,
-                                  )),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

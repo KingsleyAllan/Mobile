@@ -1,20 +1,20 @@
-import 'package:hotel/domain/models/room_model.dart';
-
 class Hotel {
   final String id;
   final String name;
+  final String continent;
   final String location;
-  final String rating;
+  final String description;
+  final double rating;
   final String imageUrl;
-  final List<Room> rooms;
 
   Hotel({
     required this.id,
     required this.name,
+    required this.continent,
     required this.location,
+    required this.description,
     required this.rating,
     required this.imageUrl,
-    required this.rooms,
   });
 
   // Serialize data to JSON
@@ -22,10 +22,11 @@ class Hotel {
     return {
       "id": id,
       'name': name,
+      'continent': continent,
       'location': location,
+      'description': description,
       'rating': rating,
       'image': imageUrl,
-      'rooms': rooms.map((room) => room.toJson()).toList(),
     };
   }
 
@@ -34,10 +35,11 @@ class Hotel {
     return Hotel(
       id: json['id'],
       name: json['name'],
+      continent: json['continent'],
       location: json['location'],
-      rating: json['rating'].toString(),
+      description: json['description'] ?? "",
+      rating: json['rating'],
       imageUrl: json['image'],
-      rooms: List<Room>.from(json['rooms']?.map((room) => Room.fromJson(room))),
     );
   }
 }

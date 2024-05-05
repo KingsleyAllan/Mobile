@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../data/dummy.dart';
+// import '../data/dummy.dart';
 import '../domain/models/hotel_model.dart';
 import '../domain/services/hotel_service.dart';
 
@@ -53,13 +53,13 @@ class HotelProvider extends ChangeNotifier {
   }
 
   //call the setHotels method from the HotelService class
-  Future<void> setHotels() async {
-    try {
-      await _hotelService.setHotels(dummyHotels);
-      _hotels = dummyHotels;
-      notifyListeners();
-    } catch (e) {
-      print('Error setting hotels: $e');
-    }
-  }
+  // Future<void> setHotels() async {
+  //   try {
+  //     await _hotelService.setHotels(dummyHotels);
+  //     _hotels = dummyHotels;
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print('Error setting hotels: $e');
+  //   }
+  // }
 }
