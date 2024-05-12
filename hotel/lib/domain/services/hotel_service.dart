@@ -17,7 +17,7 @@ class HotelService {
     await _firestore.collection('hotels').add(hotel.toJson());
   }
 
-//update a hotel in the Firestore database by passing the hotel object with a matching id
+  //update a hotel in the Firestore database by passing the hotel object with a matching id
   Future<void> updateHotel(Hotel hotel) async {
     await _firestore
         .collection('hotels')

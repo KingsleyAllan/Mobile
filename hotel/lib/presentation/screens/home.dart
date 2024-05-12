@@ -56,7 +56,6 @@ class MyHomePage extends StatelessWidget {
             //   child: SizedBox(
             //     height: 200, // Adjust height as needed
             //     child: ListView(
-            //       // This next line does the trick.
             //       scrollDirection: Axis.horizontal,
             //       children: <Widget>[
             //         Container(

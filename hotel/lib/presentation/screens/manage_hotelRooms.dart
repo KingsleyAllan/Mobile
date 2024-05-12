@@ -1,0 +1,87 @@
+// import 'package:flutter/material.dart';
+// import 'package:hotel/domain/models/room_model.dart';
+// import 'package:hotel/domain/services/room_service.dart';
+
+// class ManageHotelRooms extends StatefulWidget {
+//   final String hotelId;
+
+//   const ManageHotelRooms({super.key, required this.hotelId});
+
+//   @override
+//   State<ManageHotelRooms> createState() => _ManageHotelRoomsState();
+// }
+
+// class _ManageHotelRoomsState extends State<ManageHotelRooms> {
+//   final RoomService _roomService = RoomService();
+//   final List<Room> _rooms = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _getRoomsByHotelId();
+//   }
+
+//   Future<void> _getRoomsByHotelId() async {
+//     try {
+//       final rooms = await _roomService.getRoomsByHotel(widget.hotelId);
+//       setState(() {
+//         _rooms.addAll(rooms);
+//       });
+//     } catch (e) {
+//       print("Error fetching rooms $e");
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         toolbarHeight: 80,
+//         backgroundColor: Theme.of(context).primaryColor,
+//         leading: const Icon(
+//           Icons.manage_search_sharp,
+//           color: Colors.white,
+//           size: 27,
+//         ),
+//         title: Text(
+//           'MANAGE HOTEL ROOMS',
+//           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+//                 color: Colors.white,
+//               ),
+//         ),
+//       ),
+
+//       body: SingleChildScrollView(
+//         child: DataTable(
+//           columns: const [
+//             DataColumn(label: Text('Name')),
+//             DataColumn(label: Text('Actions')),
+//           ],
+//           rows: _rooms.map((room) => _buildHotelDataRow(room)).toList(),
+//         ),
+//       ),
+//     );
+//   }
+
+//   DataRow _buildHotelDataRow(Room room) {
+//     return DataRow(
+//       cells: [
+//         DataCell(Text(room.name)),
+//         DataCell(
+//           Row(
+//             children: [
+//               IconButton(
+//                 icon: const Icon(Icons.edit),
+//                 onPressed: () {} // Handle hotel update logic,
+//               ),
+//               IconButton(
+//                 icon: const Icon(Icons.delete),
+//                 onPressed: () {} // Handle hotel deletion logic,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

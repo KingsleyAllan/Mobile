@@ -5,14 +5,17 @@ import '../domain/services/hotel_service.dart';
 
 class HotelProvider extends ChangeNotifier {
   final HotelService _hotelService = HotelService();
-//initialize an empty list of hotels
+
+  //initialize an empty list of hotels
   List<Hotel> _hotels = [];
+  
   //getter for the hotels list
   List<Hotel> get hotels => _hotels;
+
 /*
 **All the methods below are from the HotelService class
 */
-  Future<void> fetchHotels() async {
+  Future<void> getHotels() async {
     try {
       _hotels = await _hotelService.getHotels();
       notifyListeners();
@@ -31,26 +34,26 @@ class HotelProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateHotel(Hotel hotel) async {
-    try {
-      await _hotelService.updateHotel(hotel);
-      int index = _hotels.indexWhere((h) => h.id == hotel.id);
-      _hotels[index] = hotel;
-      notifyListeners();
-    } catch (e) {
-      print('Error updating hotel: $e');
-    }
-  }
+  // Future<void> updateHotel(Hotel hotel) async {
+  //   try {
+  //     await _hotelService.updateHotel(hotel);
+  //     int index = _hotels.indexWhere((h) => h.id == hotel.id);
+  //     _hotels[index] = hotel;
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print('Error updating hotel: $e');
+  //   }
+  // }
 
-  Future<void> deleteHotel(Hotel hotel) async {
-    try {
-      await _hotelService.deleteHotel(hotel.id.toString());
-      _hotels.removeWhere((h) => h.id == hotel.id);
-      notifyListeners();
-    } catch (e) {
-      print('Error deleting hotel: $e');
-    }
-  }
+  // Future<void> deleteHotel(Hotel hotel) async {
+  //   try {
+  //     await _hotelService.deleteHotel(hotel.id.toString());
+  //     _hotels.removeWhere((h) => h.id == hotel.id);
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print('Error deleting hotel: $e');
+  //   }
+  // }
 
   //call the setHotels method from the HotelService class
   // Future<void> setHotels() async {

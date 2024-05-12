@@ -60,7 +60,7 @@ class Dashboard extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () async {
-                
+                Navigator.pushNamed(context, '/manegehotel');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor, 
@@ -80,20 +80,24 @@ class Dashboard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/adminlogin');
-                  },
-                  child: const Text('Login'),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/adminlogin');
+                    },
+                    child: const Text('Login'),
+                  ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/signup');
-                  },
-                  child: const Text('Sign up'),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                    child: const Text('Sign up'),
+                  ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

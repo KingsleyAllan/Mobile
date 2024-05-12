@@ -4,6 +4,7 @@ import 'package:hotel/presentation/screens/manage_hotels.dart';
 // import 'package:hotel/presentation/screens/dashboard.dart';
 import 'package:hotel/providers/hotel_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddHotelScreen extends StatefulWidget {
   const AddHotelScreen({super.key});
@@ -23,8 +24,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
 
   final List<String> _continents = [
     'Europe',
-    'North America',
-    'South America',
+    'The America',
     'Middle East',
     'Asia and Pacific',
   ];
@@ -56,6 +56,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
               ),
         ),
       ),
+      
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30.0),
         child: Form(
@@ -237,18 +238,18 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
 
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: Color.fromRGBO(9, 30, 61, 1.0),
+                  activeTrackColor: const Color.fromRGBO(9, 30, 61, 1.0),
                   inactiveTrackColor: Colors.grey,
                   trackHeight: 3.0,
-                  thumbColor: Color.fromRGBO(9, 30, 61, 1.0),
-                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
-                  overlayColor: Color.fromRGBO(9, 30, 61, 0.3),
-                  overlayShape: RoundSliderOverlayShape(overlayRadius: 20.0),
-                  tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: 2.0),
-                  activeTickMarkColor: Color.fromRGBO(9, 30, 61, 1.0),
+                  thumbColor: const Color.fromRGBO(9, 30, 61, 1.0),
+                  thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10.0),
+                  overlayColor: const Color.fromRGBO(9, 30, 61, 0.3),
+                  overlayShape: const RoundSliderOverlayShape(overlayRadius: 20.0),
+                  tickMarkShape: const RoundSliderTickMarkShape(tickMarkRadius: 2.0),
+                  activeTickMarkColor: const Color.fromRGBO(9, 30, 61, 1.0),
                   inactiveTickMarkColor: Colors.grey,
-                  valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                  valueIndicatorColor: Color.fromRGBO(9, 30, 61, 1.0),
+                  valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                  valueIndicatorColor: const Color.fromRGBO(9, 30, 61, 1.0),
                   valueIndicatorTextStyle: Theme.of(context)
                       .textTheme
                       .bodyMedium
@@ -313,15 +314,22 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                     String location = locationController.text;
                     String description = descriptionController.text;
                     String imageUrl = imageUrlController.text;
+
+                    // Generate a unique ID for the hotel
+                    var uuid = const Uuid();
+                    String id = uuid.v4();
+
                     // Create a new hotel object
                     Hotel hotel = Hotel(
-                        name: name,
-                        continent: _selectedContinent!,
-                        location: location,
-                        description: description,
-                        imageUrl: imageUrl,
-                        rating: rating,
-                        id: '');
+                      name: name,
+                      continent: _selectedContinent!,
+                      location: location,
+                      description: description,
+                      imageUrl: imageUrl,
+                      rating: rating,
+                      id: id,
+                    );
+
                     // Access the provider
                     context.read<HotelProvider>().addHotel(hotel);
 
@@ -330,8 +338,7 @@ class _AddHotelScreenState extends State<AddHotelScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const ManageHotel(title: '')));
-                    Navigator.pushNamed(context, '/manegehotel');
+                                const ManageHotel()));
                   }
                 },
                 style: ElevatedButton.styleFrom(
