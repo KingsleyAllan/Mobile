@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel/domain/models/hotel_model.dart';
 import 'package:hotel/domain/services/hotel_service.dart';
 import 'package:hotel/presentation/screens/add_room.dart';
+import 'package:hotel/presentation/screens/manage_hotel_rooms.dart';
 
 class ManageHotel extends StatefulWidget {
   const ManageHotel({super.key});
@@ -72,6 +73,17 @@ class _ManageHotelState extends State<ManageHotel> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => AddRoomScreen(hotelId: hotel.id), // Pass the hotel ID to the AddRoomScreen
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.format_list_bulleted_sharp),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ManageHotelRooms(hotelId: hotel.id), // Pass the hotel ID to the AddRoomScreen
                     ),
                   );
                 },

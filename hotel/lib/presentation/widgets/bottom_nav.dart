@@ -14,29 +14,37 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<BottomNavigationBarProvider>(context);
-    return Scaffold(
-      body: currentTab[provider.currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: provider.currentIndex,
-        onTap: (index) {
-          provider.currentIndex = index;
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context)=> BottomNavigationBarProvider()),
+      ],
+      child: Consumer<BottomNavigationBarProvider>(
+        builder:(context, provider, child) {
+          return Scaffold(
+            body: currentTab[provider.currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: provider.currentIndex,
+              onTap: (index) {
+                provider.currentIndex = index;
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          );
+        }
+      )
+    );    
   }
 }

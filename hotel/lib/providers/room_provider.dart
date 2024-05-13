@@ -6,7 +6,7 @@ class RoomProvider extends ChangeNotifier {
   final RoomService _roomService = RoomService();
 
   // Initialize an empty list of rooms (consider state management solution for large apps)
-  final List<Room> _rooms = [];
+  List<Room> _rooms = [];
 
   // Getter for room list (consider using an unmodifiable list for safety)
   List<Room> get rooms => _rooms;
@@ -25,8 +25,7 @@ class RoomProvider extends ChangeNotifier {
   // Fetch all rooms for a specific hotel ID (consider using a state management solution and streams for real-time updates)
   Future<void> getRoomsByHotel(String hotelId) async {
     try {
-      final fetchedRooms = await _roomService.getRoomsByHotel(hotelId);
-      _rooms.replaceRange(0, 0, fetchedRooms); // Update local list
+      _rooms = await _roomService.getRoomsByHotel(hotelId);
       notifyListeners();
     } catch (e) {
       print('Error fetching rooms: $e');

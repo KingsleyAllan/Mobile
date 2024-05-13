@@ -3,9 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hotel/presentation/screens/add_hotel.dart';
 import 'package:hotel/presentation/screens/add_room.dart';
 import 'package:hotel/presentation/screens/admin_login.dart';
+import 'package:hotel/presentation/screens/continent_selection.dart';
 import 'package:hotel/presentation/screens/dashboard.dart';
 import 'package:hotel/presentation/screens/home.dart';
 import 'package:hotel/presentation/screens/login.dart';
+import 'package:hotel/presentation/screens/manage_hotel_rooms.dart';
 import 'package:hotel/presentation/screens/manage_hotels.dart';
 import 'package:hotel/presentation/screens/profile.dart';
 import 'package:hotel/presentation/screens/register.dart';
@@ -45,8 +47,6 @@ Future<void> main() async {
 class Hotel extends StatelessWidget {
   const Hotel({super.key});
   
-  // get hotelId => null;
-
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -67,6 +67,8 @@ class Hotel extends StatelessWidget {
         '/addhotel':(context) => const AddHotelScreen(),
         '/manegehotel':(context) =>  const ManageHotel(),
         '/addrooms':(context) => const AddRoomScreen(hotelId: '',),
+        '/managehotelrooms':(context) => const ManageHotelRooms(hotelId: ''),
+        '/bookings':(context) => const ContinentSelection(),
       },
     );
   }

@@ -5,18 +5,17 @@ class RoomService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // Add a room to a hotel
-   Future<void> addRoom(Room room) async {
+  Future<void> addRoom(Room room) async {
     await _firestore.collection('rooms').add(room.toJson());
   }
 
   // Fetching rooms from Firestore database
   Future<List<Room>> getRoomsByHotel(String hotelId) async {
-    final QuerySnapshot = await _firestore
-        .collection('hotels')
-        .doc(hotelId)
+     QuerySnapshot snapshot = await _firestore
         .collection('rooms')
+        .where('hotelId', isEqualTo: hotelId)
         .get();
-    return QuerySnapshot.docs.map((doc) => Room.fromJson(doc.data())).toList();
+    return snapshot.docs.map((doc) => Room.fromJson(doc.data() as Map<String, dynamic>)).toList();
   }
 
   // Update a room in Firestore by passing the room object with a matching id

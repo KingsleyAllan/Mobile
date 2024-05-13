@@ -24,6 +24,16 @@ class HotelProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> getHotelsByContinent(String continent) async {
+    try {
+      _hotels = await _hotelService.getHotelsByContinent(continent);
+      notifyListeners(); 
+    } catch (error) {
+      print('Error fetching hotels by continent: $error');
+      // Handle error appropriately (e.g., show a snackbar to the user)
+    }
+  }
+
   Future<void> addHotel(Hotel hotel) async {
     try {
       await _hotelService.addHotel(hotel);

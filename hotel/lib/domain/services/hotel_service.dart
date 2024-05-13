@@ -9,7 +9,19 @@ class HotelService {
   Future<List<Hotel>> getHotels() async {
     QuerySnapshot snapshot = await _firestore.collection('hotels').get();
 
-    return snapshot.docs.map((doc) => Hotel.fromJson(doc.data() as Map<String, dynamic>)).toList();
+    return snapshot.docs
+        .map((doc) => Hotel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  Future<List<Hotel>> getHotelsByContinent(String continent) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection('hotels')
+        .where('continent', isEqualTo: continent)
+        .get();
+    return snapshot.docs
+        .map((doc) => Hotel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
   }
 
   //add a new hotel to the Firestore database
