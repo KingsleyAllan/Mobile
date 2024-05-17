@@ -43,7 +43,11 @@ dependencies:
   cloud_firestore: ^4.17.0
   data_table_2: ^2.5.12
   uuid: ^4.4.0
-  rxdart: ^0.27.7
+  rxdart: 0.27.7
+  image_picker: ^1.1.1
+  firebase_storage: ^11.7.5
+  file_picker: ^8.0.3
+  table_calendar: ^3.1.1
 
 dev_dependencies:
   flutter_test:

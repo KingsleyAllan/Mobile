@@ -24,6 +24,30 @@ class HotelService {
         .toList();
   }
 
+  Future<Hotel?> getHotelDetails(String id) async {
+  try {
+    DocumentSnapshot snapshot = await _firestore.collection('hotels').doc(id).get();
+    if (snapshot.exists) {
+      return Hotel.fromJson(snapshot.data() as Map<String, dynamic>);
+    } else {
+      return null; // Return null if the hotel is not found
+    }
+  } catch (e) {
+    throw Exception('Error fetching hotel details: $e'); // More specific error message
+  }
+}
+
+
+  // Future<List<Hotel>> getHotelDetails(String hotelId) async {
+  //   QuerySnapshot snapshot = await _firestore
+  //       .collection('hotels')
+  //       .where('hotelId', isEqualTo: hotelId)
+  //       .get();
+  //   return snapshot.docs
+  //       .map((doc) => Hotel.fromJson(doc.data() as Map<String, dynamic>))
+  //       .toList();
+  // }
+
   //add a new hotel to the Firestore database
   Future<void> addHotel(Hotel hotel) async {
     await _firestore.collection('hotels').add(hotel.toJson());

@@ -22,6 +22,25 @@ class ProfileScreen extends StatelessWidget {
               'Welcome, ${user?.fname ?? 'Guest'}',
               style: const TextStyle(fontSize: 20),
             ),
+
+            Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/adminlogin');
+                    },
+                    child: const Text('Login'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                    child: const Text('Sign up'),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

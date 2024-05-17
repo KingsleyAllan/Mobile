@@ -336,10 +336,10 @@ class _CreateUserScreenState extends State<SignUpScreen> {
                   ),
                   child: Text(
                     'CREATE',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontSize: 12, color: Colors.white),
+                    // style: Theme.of(context)
+                    //     .textTheme
+                    //     .bodyLarge
+                    //     ?.copyWith(fontSize: 12, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 20),

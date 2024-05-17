@@ -8,9 +8,11 @@ class HotelProvider extends ChangeNotifier {
 
   //initialize an empty list of hotels
   List<Hotel> _hotels = [];
-  
+  Hotel? _selectedHotel;
+
   //getter for the hotels list
   List<Hotel> get hotels => _hotels;
+   Hotel? get selectedHotel => _selectedHotel;
 
 /*
 **All the methods below are from the HotelService class
@@ -27,10 +29,19 @@ class HotelProvider extends ChangeNotifier {
   Future<void> getHotelsByContinent(String continent) async {
     try {
       _hotels = await _hotelService.getHotelsByContinent(continent);
-      notifyListeners(); 
+      notifyListeners();
     } catch (error) {
       print('Error fetching hotels by continent: $error');
       // Handle error appropriately (e.g., show a snackbar to the user)
+    }
+  }
+
+  Future<void> getHotelDetails(String id) async {
+    try {
+      _selectedHotel = await _hotelService.getHotelDetails(id);
+      notifyListeners();
+    } catch (e) {
+      throw Exception('Could not find details for this hotel $e');
     }
   }
 

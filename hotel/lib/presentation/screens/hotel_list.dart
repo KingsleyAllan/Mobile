@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel/domain/models/hotel_model.dart';
+import 'package:hotel/presentation/screens/hotel_details.dart';
 import 'package:hotel/providers/hotel_provider.dart';
-// import 'package:hotel/domain/services/hotel_service.dart';
 import 'package:provider/provider.dart';
 
 class HotelList extends StatefulWidget {
@@ -62,7 +62,15 @@ class _HotelListState extends State<HotelList> {
                         subtitle: Text(hotelProvider.hotels[index].location,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 15)
                         ),
-                        // Add more hotel details here
+
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HotelDetails(id: hotelProvider.hotels[index].id),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
