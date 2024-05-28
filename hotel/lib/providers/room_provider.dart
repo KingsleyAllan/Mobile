@@ -7,9 +7,12 @@ class RoomProvider extends ChangeNotifier {
 
   // Initialize an empty list of rooms (consider state management solution for large apps)
   List<Room> _rooms = [];
+  Room? _selectedRoom;
+  String? selectedRoomId;
 
   // Getter for room list (consider using an unmodifiable list for safety)
   List<Room> get rooms => _rooms;
+  Room? get selectedRoom => _selectedRoom;
 
   // Add a room
   Future<void> addRoom(Room room) async {
@@ -32,6 +35,15 @@ class RoomProvider extends ChangeNotifier {
     }
   }
 
+  List<Room> getRoomsForSelectedHotel(String selectedHotelId) {
+    return _rooms.where((room) => room.hotelId == selectedHotelId).toList();
+  }
+
+  // Future<void> getRoomDetails(String id) async {
+  //   try {
+  //     _rooms = await _roomService.getRoomDetails(id);
+  //   } catch (e) {}
+  // }
   // Update a room
   // Future<void> updateRoom(Room room) async {
   //   try {

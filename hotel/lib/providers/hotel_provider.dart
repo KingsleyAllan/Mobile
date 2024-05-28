@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import '../data/dummy.dart';
 import '../domain/models/hotel_model.dart';
 import '../domain/services/hotel_service.dart';
 
@@ -9,10 +8,11 @@ class HotelProvider extends ChangeNotifier {
   //initialize an empty list of hotels
   List<Hotel> _hotels = [];
   Hotel? _selectedHotel;
+  String? selectedHotelId;
 
   //getter for the hotels list
   List<Hotel> get hotels => _hotels;
-   Hotel? get selectedHotel => _selectedHotel;
+  Hotel? get selectedHotel => _selectedHotel;
 
 /*
 **All the methods below are from the HotelService class

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hotel/providers/guest_count_provider.dart';
+import 'package:hotel/presentation/screens/booking_screen.dart';
+import 'package:hotel/providers/booking_criteria.dart';
 import 'package:hotel/providers/select_date_provider.dart';
+import 'package:hotel/providers/selected_hotel_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:hotel/providers/guest_count_provider.dart';
 
 class SelectDate extends StatefulWidget {
   const SelectDate({super.key});
@@ -13,41 +16,25 @@ class SelectDate extends StatefulWidget {
 
 class _SelectDateState extends State<SelectDate> {
   late final SelectedDate _selectedDateProvider;
-  late final GuestCountProvider _guestCountProvider;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
-  int _adults = 1;
-  int _children = 0;
 
   @override
   void initState() {
     super.initState();
     _selectedDateProvider = Provider.of<SelectedDate>(context, listen: false);
-    _guestCountProvider =
-        Provider.of<GuestCountProvider>(context, listen: false);
-  }
-
-  void _incrementAdults() {
-    _guestCountProvider.incrementAdults();
-  }
-
-  void _decrementAdults() {
-    _guestCountProvider.decrementAdults();
-  }
-
-  void _incrementChildren() {
-    _guestCountProvider.incrementChildren();
-  }
-
-  void _decrementChildren() {
-    _guestCountProvider.decrementChildren();
+    final selectedHotelProvider = Provider.of<SelectedHotelProvider>(context, listen: false);
+     final String? selectedHotel = selectedHotelProvider.selectedHotelId;
+    print('Selected Hotel: $selectedHotel');
   }
 
   @override
   Widget build(BuildContext context) {
+    final guestCountProvider = Provider.of<GuestCountProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -182,14 +169,14 @@ class _SelectDateState extends State<SelectDate> {
                             ),
                             padding: const EdgeInsets.all(8.0),
                             iconSize: 18.0,
-                            onPressed: _decrementAdults,
+                            onPressed: guestCountProvider.decrementAdults,
                           ),
                           Container(
                             width: 40.0,
                             height: 40.0,
                             child: Center(
                               child: Text(
-                                '$_adults',
+                                '${guestCountProvider.guestCount.adults}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -206,7 +193,7 @@ class _SelectDateState extends State<SelectDate> {
                             ),
                             padding: const EdgeInsets.all(8.0),
                             iconSize: 18.0,
-                            onPressed: _incrementAdults,
+                            onPressed: guestCountProvider.incrementAdults,
                           ),
                         ],
                       ),
@@ -231,14 +218,14 @@ class _SelectDateState extends State<SelectDate> {
                             ),
                             padding: const EdgeInsets.all(8.0),
                             iconSize: 18.0,
-                            onPressed: _decrementChildren,
+                            onPressed: guestCountProvider.decrementChildren,
                           ),
                           Container(
                             width: 40.0,
                             height: 40.0,
                             child: Center(
                               child: Text(
-                                '$_children',
+                                '${guestCountProvider.guestCount.children}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -255,7 +242,7 @@ class _SelectDateState extends State<SelectDate> {
                             ),
                             padding: const EdgeInsets.all(8.0),
                             iconSize: 18.0,
-                            onPressed: _incrementChildren,
+                            onPressed: guestCountProvider.incrementChildren,
                           ),
                         ],
                       ),
@@ -269,9 +256,15 @@ class _SelectDateState extends State<SelectDate> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle booking confirmation
                   if (_rangeStart != null && _rangeEnd != null) {
-                    // Proceed with booking for the selected range
+                    final bookingData = BookingData(_rangeStart!, _rangeEnd!,
+                        guestCountProvider.guestCount);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              BookingScreen(bookingData: bookingData)),
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(

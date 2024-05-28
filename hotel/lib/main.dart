@@ -23,6 +23,7 @@ import 'package:hotel/providers/hotel_provider.dart';
 import 'package:hotel/providers/mobile_image_provider.dart';
 import 'package:hotel/providers/room_provider.dart';
 import 'package:hotel/providers/select_date_provider.dart';
+import 'package:hotel/providers/selected_hotel_provider.dart';
 import 'package:hotel/providers/web_image_provider.dart';
 import 'package:hotel/theme/theme.dart';
 import 'firebase_options.dart';
@@ -52,6 +53,7 @@ Future<void> main() async {
       ),
       ChangeNotifierProvider(create: (context) => SelectedDate()),
       ChangeNotifierProvider(create: (context) => GuestCountProvider()),
+      ChangeNotifierProvider(create: (context) => SelectedHotelProvider()),
       ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider()),
     ],
     child: const Hotel(),
