@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:hotel/domain/services/image_service.dart';
-// import 'package:hotel/domain/services/mobile_image_service.dart';
 import 'package:hotel/presentation/screens/add_hotel.dart';
 import 'package:hotel/presentation/screens/add_room.dart';
 import 'package:hotel/presentation/screens/admin_login.dart';
@@ -21,6 +19,7 @@ import 'package:hotel/providers/bottom_nav_provider.dart';
 import 'package:hotel/providers/guest_count_provider.dart';
 import 'package:hotel/providers/hotel_provider.dart';
 import 'package:hotel/providers/mobile_image_provider.dart';
+import 'package:hotel/providers/room_count_provider.dart';
 import 'package:hotel/providers/room_provider.dart';
 import 'package:hotel/providers/select_date_provider.dart';
 import 'package:hotel/providers/selected_hotel_provider.dart';
@@ -53,6 +52,7 @@ Future<void> main() async {
       ),
       ChangeNotifierProvider(create: (context) => SelectedDate()),
       ChangeNotifierProvider(create: (context) => GuestCountProvider()),
+      ChangeNotifierProvider(create: (context) => RoomCountProvider()),
       ChangeNotifierProvider(create: (context) => SelectedHotelProvider()),
       ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider()),
     ],

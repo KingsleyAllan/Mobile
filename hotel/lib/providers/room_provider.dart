@@ -41,9 +41,12 @@ class RoomProvider extends ChangeNotifier {
 
   // Future<void> getRoomDetails(String id) async {
   //   try {
-  //     _rooms = await _roomService.getRoomDetails(id);
-  //   } catch (e) {}
+  //     _selectedRoom = await _roomService.getRoomDetails(id);
+  //   } catch (e) {
+  //     throw Exception('Could not find details for this room $e');
+  //   }
   // }
+
   // Update a room
   // Future<void> updateRoom(Room room) async {
   //   try {

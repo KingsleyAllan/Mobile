@@ -12,15 +12,11 @@ class ContinentSelection extends StatelessWidget {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 24, 26, 27),
         appBar: AppBar(
-          toolbarHeight: 80,
-          centerTitle: true,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'ROSEWOOD',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.white,
-                  fontSize: 30,
-                ),
+          automaticallyImplyLeading: false,
+          toolbarHeight: 150,
+          flexibleSpace: const Image(
+            image: AssetImage('assets/images/home page header.png'),
+            fit: BoxFit.cover,
           ),
         ),
         body: Padding(

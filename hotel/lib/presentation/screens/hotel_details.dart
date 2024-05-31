@@ -39,6 +39,7 @@ class _HotelDetailsState extends State<HotelDetails> {
 
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 100,
           flexibleSpace: const Image(
             image: AssetImage('assets/images/home page header.png'),

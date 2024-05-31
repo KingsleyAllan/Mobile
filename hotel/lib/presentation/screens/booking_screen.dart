@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hotel/domain/models/room_model.dart';
+import 'package:hotel/presentation/screens/booking_confirmation.dart';
+import 'package:hotel/presentation/screens/login.dart';
 import 'package:hotel/presentation/screens/room_details.dart';
+import 'package:hotel/providers/auth_provider.dart';
 import 'package:hotel/providers/booking_criteria.dart';
 import 'package:hotel/providers/bottom_nav_provider.dart';
 import 'package:hotel/providers/room_provider.dart';
@@ -17,7 +20,6 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
-  Room? _selectedRoom;
   RoomProvider? roomProvider;
 
   @override
@@ -53,7 +55,8 @@ class _BookingScreenState extends State<BookingScreen> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          final filteredRooms = roomProvider!.getRoomsForSelectedHotel(selectedHotelId!);
+          final filteredRooms =
+              roomProvider!.getRoomsForSelectedHotel(selectedHotelId);
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 80,
@@ -67,6 +70,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 'ROOMS',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Colors.white,
+                      fontSize: 20,
                     ),
               ),
             ),
@@ -99,7 +103,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                 children: [
                                   Text(
                                     room.name,
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
                                           fontSize: 20,
                                           color: Theme.of(context).primaryColor,
                                         ),
@@ -107,7 +114,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                   const SizedBox(height: 4),
                                   Text(
                                     room.headline,
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -117,17 +127,24 @@ class _BookingScreenState extends State<BookingScreen> {
                                     onTap: () => _showRoomDetailsDialog(room),
                                     child: Text(
                                       'Room details',
-                                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
-                                            decoration: TextDecoration.underline,
+                                            decoration:
+                                                TextDecoration.underline,
                                           ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     'BEST AVAILABLE RATE',
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
                                           fontSize: 16,
                                           color: Theme.of(context).primaryColor,
                                         ),
@@ -135,7 +152,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                   const SizedBox(height: 4),
                                   Text(
                                     '\$${room.rate}',
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
                                           fontSize: 20,
                                           color: Theme.of(context).primaryColor,
                                         ),
@@ -143,7 +163,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                   const SizedBox(height: 8),
                                   Text(
                                     'Average per night, before taxes and fees',
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -155,7 +178,8 @@ class _BookingScreenState extends State<BookingScreen> {
                                       const SizedBox(width: 4),
                                       const Text('1 Bed / Extra Bed Available'),
                                       const SizedBox(width: 16),
-                                      const Icon(Icons.person_outline_sharp, size: 20),
+                                      const Icon(Icons.person_outline_sharp,
+                                          size: 20),
                                       const SizedBox(width: 4),
                                       Text('Sleeps ${room.capacity} guests'),
                                     ],
@@ -163,21 +187,62 @@ class _BookingScreenState extends State<BookingScreen> {
                                   const SizedBox(height: 15),
                                   ElevatedButton(
                                     onPressed: () async {
-                                      // Check if user
+                                      // Check if user is logged in
+                                      final isLoggedIn =
+                                          await Provider.of<AuthProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .isLoggedIn;
+
+                                      if (isLoggedIn) {
+                                        // navigate to booking confirmation
+                                        final roomName = room.name;
+                                        final roomRate = room.rate;
+                                        final roomCapacity = room.capacity;
+                                        final roomImage = room.imageUrl;
+                                        final roomHeadline = room.headline;
+                                        final roomAmenities = room.amenities;
+                                        // final bookingData = BookingData(startDate, endDate, guestCount)
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                              BookingConfirmation(
+                                                bookingData: widget.bookingData,
+                                                roomName: roomName,
+                                                roomRate: roomRate,
+                                                roomCapacity: roomCapacity,
+                                                roomImage: roomImage,
+                                                roomHeadline: roomHeadline,
+                                                roomAmenities: roomAmenities,
+                                              )));
+                                      } else {
+                                        // navigate to login page
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoginScreen()));
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColor,
-                                      minimumSize: const Size(double.infinity, 50),
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                      minimumSize:
+                                          const Size(double.infinity, 50),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                     ),
-                                    child:  Text(
+                                    child: Text(
                                       'BOOK',
-                                     style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(fontSize: 12, color: Colors.white),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              fontSize: 12,
+                                              color: Colors.white),
                                     ),
                                   ),
                                 ],

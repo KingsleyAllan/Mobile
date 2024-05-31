@@ -12,7 +12,12 @@ class ProfileScreen extends StatelessWidget {
     final UserModel? user = authProvider.user;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        automaticallyImplyLeading: false,
+        toolbarHeight: 150,
+        flexibleSpace: const Image(
+          image: AssetImage('assets/images/home page header.png'),
+          fit: BoxFit.cover,
+        ),
       ),
       body: Center(
         child: Column(

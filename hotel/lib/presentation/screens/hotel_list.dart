@@ -25,16 +25,12 @@ class _HotelListState extends State<HotelList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-        toolbarHeight: 80,
-        centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(
-          'ROSEWOOD',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white,
-                fontSize: 30,
-              ),
+       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: 150,
+        flexibleSpace: const Image(
+          image: AssetImage('assets/images/home page header.png'),
+          fit: BoxFit.cover,
         ),
       ),
 

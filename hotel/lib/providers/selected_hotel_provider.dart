@@ -7,15 +7,6 @@ class SelectedHotelProvider with ChangeNotifier {
   
    void setSelectedHotelId(String id) {
     _selectedHotelId = id;
-    notifyListeners(); // Notify listeners of the change
+    notifyListeners();
   }
-
-  // void setSelectedHotelId(String? id) async {
-  //   try {
-  //     _selectedHotelId = id;
-  //     notifyListeners();
-  //   } catch (e) {
-  //      print('Error setting selected hotel id: $e');
-  //   }
-  // }
 }

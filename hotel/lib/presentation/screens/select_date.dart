@@ -27,7 +27,7 @@ class _SelectDateState extends State<SelectDate> {
     super.initState();
     _selectedDateProvider = Provider.of<SelectedDate>(context, listen: false);
     final selectedHotelProvider = Provider.of<SelectedHotelProvider>(context, listen: false);
-     final String? selectedHotel = selectedHotelProvider.selectedHotelId;
+    final String? selectedHotel = selectedHotelProvider.selectedHotelId;
     print('Selected Hotel: $selectedHotel');
   }
 
@@ -220,7 +220,7 @@ class _SelectDateState extends State<SelectDate> {
                             iconSize: 18.0,
                             onPressed: guestCountProvider.decrementChildren,
                           ),
-                          Container(
+                          SizedBox(
                             width: 40.0,
                             height: 40.0,
                             child: Center(

@@ -46,7 +46,7 @@ class RoomService {
     }
   }
 
-  // Future<List<Room>> getRoomDetails(String id) async {
+  // Future<Room?> getRoomDetails(String id) async {
   //   try {
   //     DocumentSnapshot snapshot = await _firestore.collection('rooms').doc(id).get();
   //     if (snapshot.exists) {
