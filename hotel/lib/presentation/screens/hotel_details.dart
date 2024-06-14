@@ -55,13 +55,16 @@ class _HotelDetailsState extends State<HotelDetails> {
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  if (hotel.imageUrl != null && hotel.imageUrl.isNotEmpty)
-                    // Image.network(hotel.imageUrl),
-                    Image.asset(
-                      'images/georgia.png',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                  
+                  Image.network(
+                    hotel.imageUrl,
+                    height: 216,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(child: Text('Error loading image'));
+                    },
+                  ),
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -88,7 +91,10 @@ class _HotelDetailsState extends State<HotelDetails> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(hotel.name,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 30, fontWeight: FontWeight.w900)),
+                            fontSize: 30, fontWeight: FontWeight.w900),
+                            textAlign: TextAlign.center,
+                            ),
+                            
                   ),
                   Padding(
                       padding: const EdgeInsets.all(8.0),

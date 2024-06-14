@@ -15,6 +15,7 @@ import 'package:hotel/presentation/screens/register.dart';
 import 'package:hotel/presentation/screens/select_date.dart';
 import 'package:hotel/presentation/widgets/bottom_nav.dart';
 import 'package:hotel/providers/admin_provider.dart';
+import 'package:hotel/providers/booking_provider.dart';
 import 'package:hotel/providers/bottom_nav_provider.dart';
 import 'package:hotel/providers/guest_count_provider.dart';
 import 'package:hotel/providers/hotel_provider.dart';
@@ -31,30 +32,52 @@ import 'package:hotel/providers/auth_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   const isWeb = kIsWeb; // Checks if app is running on web
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // // Set PayPal environment (sandbox)
+  // final paypalCheckoutView = PaypalCheckoutView(
+  //   sandboxMode: true, // Set to 'false' for production
+  //   clientId: 'AfEqt3KjTt-v6qU8LbE4mH8CnYFnN2PxuNbEjSonu2VElYfiuDgL439nNTjU7xMteSLvEi3FqW0vcTD4',
+  //   secretKey: 'EJAsikLjsYVoc7x4QlislzW1H_yboageBoXEA1kGvRb_NSqvSD3fNOCkPDQNw5zQp1a4VXsKLFIw0gzZ',
+  //   transactions: const [
+  //    //define transaction details
+  //   ],
+  //   onSuccess: (Map params) async {
+  //     // Handle successful payment
+  //   },
+  //   onError: (Map params) async {
+  //      // Handle payment error
+  //   },
+  //   onCancel: () {
+  //     // Handle payment cancellationImplement the onSuccess, onError, and onCancel callbacks to handle the respective payment outcomes
+  //   },
+  // );
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => AuthProvider()),
       ChangeNotifierProvider(create: (context) => AdminProvider()),
       ChangeNotifierProvider(create: (context) => HotelProvider()),
       ChangeNotifierProvider(create: (context) => RoomProvider()),
+      ChangeNotifierProvider(create: (context) => BookingProvider()),
       ChangeNotifierProvider(create: (context) => MobileImageProvider()),
       if (isWeb)
-      ChangeNotifierProvider<WebImageProvider>(
-        create: (context) => WebImageProvider(),
-      )
-    else
-      Provider<MobileImageProvider>( // Provide MobileImageService concretely
-        create: (context) => MobileImageProvider(),
-      ),
+        ChangeNotifierProvider<WebImageProvider>(
+          create: (context) => WebImageProvider(),
+        )
+      else
+        Provider<MobileImageProvider>(
+          // Provide MobileImageService concretely
+          create: (context) => MobileImageProvider(),
+        ),
       ChangeNotifierProvider(create: (context) => SelectedDate()),
       ChangeNotifierProvider(create: (context) => GuestCountProvider()),
       ChangeNotifierProvider(create: (context) => RoomCountProvider()),
       ChangeNotifierProvider(create: (context) => SelectedHotelProvider()),
-      ChangeNotifierProvider(create: (context) => BottomNavigationBarProvider()),
+      ChangeNotifierProvider(
+          create: (context) => BottomNavigationBarProvider()),
     ],
     child: const Hotel(),
   ));
@@ -73,7 +96,9 @@ class Hotel extends StatelessWidget {
       title: 'RoseWood Hotel Group',
       home: Builder(
         builder: (context) {
-          return authProvider.isLoggedIn? BottomBar() : const MyHomePage(title: '');
+          return authProvider.isLoggedIn
+              ? BottomBar()
+              : const MyHomePage(title: '');
         },
       ),
       routes: {
@@ -82,11 +107,15 @@ class Hotel extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/adminlogin': (context) => AdminScreen(),
-        '/dashboard': (context) => const Dashboard(title: '',),
+        '/dashboard': (context) => const Dashboard(
+              title: '',
+            ),
         '/addhotel': (context) => const AddHotelScreen(),
         '/manegehotel': (context) => const ManageHotel(),
-        '/addrooms': (context) => const AddRoomScreen(hotelId: '',),
-        '/managehotelrooms': (context) => const ManageHotelRooms(hotelId: ''),
+        '/addrooms': (context) => const AddRoomScreen(
+              hotelId: '',
+            ),
+        '/managehotelrooms': (context) => const ManageHotelRooms(),
         '/bookings': (context) => const ContinentSelection(),
         '/selectdate': (context) => const SelectDate()
       },

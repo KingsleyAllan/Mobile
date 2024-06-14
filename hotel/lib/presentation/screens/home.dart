@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel/presentation/screens/hotel_list.dart';
 import 'package:hotel/providers/bottom_nav_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +33,7 @@ class MyHomePage extends StatelessWidget {
                 child: Text(
                   'Discover a global collection of one-of-a-kind luxury hotels, resorts and residences, each inspired by our A Sense of Place® philosophy to reflect the local culture and spirit of a destination.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 14,
+                        fontSize: 14, fontWeight: FontWeight.w600
                       ),
                   textAlign: TextAlign.center,
                 ),
@@ -49,133 +50,145 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
 
-               Padding(
-              padding: const EdgeInsets.all(10.0), // Adjust the value as needed
-              child: SizedBox(
-                height: 200, // Adjust height as needed
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 200,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
-                        children: [
-                          // Image at the top
-                          ClipRRect(
-                            child: Image.asset(
-                              'images/littledixbay.png',
-                              width: double.infinity,
-                              height: 120,
-                              fit: BoxFit.cover,
-                            ),
+              Padding(
+                padding: const EdgeInsets.all(10.0), // Adjust the value as needed
+                child: SizedBox(
+                  height: 200, // Adjust height as needed
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 200,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const HotelList(continent: 'The America'),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
+                            children: [
+                              // Image at the top
+                              ClipRRect(
+                                child: Image.asset(
+                                  'images/littledixbay.png',
+                                  width: double.infinity,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Virgin Gorda, BVI',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontSize: 11, fontWeight: FontWeight.w600
+                                )
+                              ),
+                              Text(
+                                'ROSEWOOD LITTLE DIX BAY',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Virgin Gorda, BVI',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 11,
-                            )
-                            
-                          ),
-                          Text(
-                            'ROSEWOOD LITTLE DIX BAY',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 15),
-                    SizedBox(
-                      width: 200,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
-                        children: [
-                          // Image at the top
-                          ClipRRect(
-                            child: Image.asset(
-                              'images/miramar.png',
-                              width: double.infinity,
-                              height: 120,
-                              fit: BoxFit.cover,
-                            ),
+                      const SizedBox(width: 15),
+                      SizedBox(
+                        width: 200,
+                        child: InkWell(
+                          onTap: () {
+                           Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const HotelList(continent: 'The America'),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
+                            children: [
+                              // Image at the top
+                              ClipRRect(
+                                child: Image.asset(
+                                  'images/miramar.png',
+                                  width: double.infinity,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Montecito, CA. USA',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontSize: 11, fontWeight: FontWeight.w600
+                                )
+                              ),
+                              Text(
+                                'ROSEWOOD MIRAMAR BEACH',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Montecito, CA. USA',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 11,
-                            )
-                            
-                          ),
-                          Text(
-                            'ROSEWOOD MIRAMAR BEACH',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 15,),
-                    SizedBox(
-                      width: 200,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
-                        children: [
-                          // Image at the top
-                          ClipRRect(
-                            child: Image.asset(
-                              'images/georgia.png',
-                              width: double.infinity,
-                              height: 120,
-                              fit: BoxFit.cover,
-                            ),
+                      const SizedBox(width: 15,),
+                      SizedBox(
+                        width: 200,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const HotelList(continent: 'The America'),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start, //Align text to the left
+                            children: [
+                              // Image at the top
+                              ClipRRect(
+                                child: Image.asset(
+                                  'images/georgia.png',
+                                  width: double.infinity,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Vancouver, BC. Canada',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontSize: 11, fontWeight: FontWeight.w600
+                                )
+                              ),
+                              Text(
+                                'ROSEWOOD HOTEL GEORGIA',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Vancouver, BC. Canada',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 11,
-                            )
-                            
-                          ),
-                          Text(
-                            'ROSEWOOD HOTEL GEORGIA',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            )
-              // Row(
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     ElevatedButton(
-              //       onPressed: () {
-              //         Navigator.pushNamed(context, '/adminlogin');
-              //       },
-              //       child: const Text('Login'),
-              //     ),
-              //     ElevatedButton(
-              //       onPressed: () {
-              //         Navigator.pushNamed(context, '/signup');
-              //       },
-              //       child: const Text('Sign up'),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),

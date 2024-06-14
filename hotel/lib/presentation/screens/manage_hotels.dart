@@ -3,8 +3,11 @@ import 'package:hotel/domain/models/hotel_model.dart';
 import 'package:hotel/domain/services/hotel_service.dart';
 import 'package:hotel/presentation/screens/add_room.dart';
 import 'package:hotel/presentation/screens/manage_hotel_rooms.dart';
+import 'package:hotel/providers/selected_hotel_provider.dart';
+import 'package:provider/provider.dart';
 
 class ManageHotel extends StatefulWidget {
+
   const ManageHotel({super.key});
 
   @override
@@ -23,7 +26,7 @@ class _ManageHotelState extends State<ManageHotel> {
 
   Future<void> _fetchHotels() async {
     _hotels = await _hotelService.getHotels();
-    setState(() {});//Update UI after fetching hotels
+    setState(() {}); //Update UI after fetching hotels
   }
 
   @override
@@ -45,16 +48,16 @@ class _ManageHotelState extends State<ManageHotel> {
         ),
       ),
       body: _hotels.isEmpty
-          ? const Center(child: CircularProgressIndicator()) // Show loading indicator
+          ? const Center(
+              child: CircularProgressIndicator()) // Show loading indicator
           : DataTable(
               columns: const [
                 DataColumn(label: Text('Name')),
                 DataColumn(label: Text('Continent')),
                 DataColumn(label: Text('')), // Add an action column
               ],
-
               rows: _hotels.map((hotel) => _hotelDataRow(hotel)).toList(),
-            ),    
+            ),
     );
   }
 
@@ -72,7 +75,9 @@ class _ManageHotelState extends State<ManageHotel> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddRoomScreen(hotelId: hotel.id), // Pass the hotel ID to the AddRoomScreen
+                      builder: (context) => AddRoomScreen(
+                          hotelId: hotel
+                              .id), // Pass the hotel ID to the AddRoomScreen
                     ),
                   );
                 },
@@ -80,26 +85,21 @@ class _ManageHotelState extends State<ManageHotel> {
               IconButton(
                 icon: const Icon(Icons.format_list_bulleted_sharp),
                 onPressed: () {
+                  Provider.of<SelectedHotelProvider>(context, listen: false).setSelectedHotelId(hotel.id);
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManageHotelRooms(hotelId: hotel.id), // Pass the hotel ID to the AddRoomScreen
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ManageHotelRooms()));
                 },
               ),
-              // IconButton(
-              //   icon: const Icon(Icons.list),
-              //   onPressed: () => Navigator.pushNamed(context, '/viewrooms'), // Pass hotel ID for viewing rooms
-              // ),
-              // IconButton(
-              //     icon: const Icon(Icons.edit),
-              //     onPressed: () {} // Handle hotel update logic,
-              //     ),
-              // IconButton(
-              //     icon: const Icon(Icons.delete),
-              //     onPressed: () {} // Handle hotel deletion logic,
-              //     ),
+              IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {} // Handle hotel update logic,
+                  ),
+              IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {} // Handle hotel deletion logic,
+                  ),
             ],
           ),
         ),

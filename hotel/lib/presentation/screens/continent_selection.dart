@@ -37,7 +37,7 @@ class ContinentSelection extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const HotelList(continent: 'The America'),
+                            const HotelList(continent: 'The Americas'),
                       ),
                     );
                   },

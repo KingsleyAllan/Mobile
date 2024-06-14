@@ -107,6 +107,8 @@ class AuthService {
     }
   }
 
+  //Update user profile information
+ 
   // Sign-out
   Future<UserModel?> signOut(BuildContext context) async {
     try {
