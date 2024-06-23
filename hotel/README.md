@@ -54,4 +54,4 @@ For hotel administrators, the website will include a comprehensive management da
 
 # ERD Diagram
 
-<p align="center"><img src="assets/images/erd.png.png" width="400" alt=""></p>
+<p align="center"><img src="assets/images/erd.png" width="400" alt=""></p>
