@@ -13,6 +13,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 150,
+          automaticallyImplyLeading: false,
           flexibleSpace: const Image(
             image: AssetImage('assets/images/home page header.png'),
             fit: BoxFit.cover,
@@ -213,7 +214,7 @@ class MyHomePage extends StatelessWidget {
                     provider.currentIndex = index;
                     break;
                   case 2:
-                    Navigator.pushNamed(context, '/trips');
+                    Navigator.pushNamed(context, '/profile');
                     provider.currentIndex = index;
                     break;
                   case 3:

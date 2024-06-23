@@ -52,10 +52,11 @@ class _HotelDetailsState extends State<HotelDetails> {
               hotelProvider.hotels.firstWhere((hotel) => hotel.id == widget.id);
 
           if (hotel != null) {
+            selectedHotelProvider.setSelectedHotelName(hotel.name);
+            
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  
                   Image.network(
                     hotel.imageUrl,
                     height: 216,
@@ -89,12 +90,14 @@ class _HotelDetailsState extends State<HotelDetails> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(hotel.name,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 30, fontWeight: FontWeight.w900),
-                            textAlign: TextAlign.center,
-                            ),
-                            
+                    child: Text(
+                      hotel.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 30, fontWeight: FontWeight.w900),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   Padding(
                       padding: const EdgeInsets.all(8.0),

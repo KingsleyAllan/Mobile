@@ -58,6 +58,8 @@ class _ManageHotelState extends State<ManageHotel> {
               ],
               rows: _hotels.map((hotel) => _hotelDataRow(hotel)).toList(),
             ),
+            
+            
     );
   }
 
@@ -92,14 +94,14 @@ class _ManageHotelState extends State<ManageHotel> {
                           builder: (context) => const ManageHotelRooms()));
                 },
               ),
-              IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {} // Handle hotel update logic,
-                  ),
-              IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {} // Handle hotel deletion logic,
-                  ),
+              // IconButton(
+              //     icon: const Icon(Icons.edit),
+              //     onPressed: () {} // Handle hotel update logic,
+              //     ),
+              // IconButton(
+              //     icon: const Icon(Icons.delete),
+              //     onPressed: () {} // Handle hotel deletion logic,
+              //     ),
             ],
           ),
         ),

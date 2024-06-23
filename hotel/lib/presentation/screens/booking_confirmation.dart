@@ -1,11 +1,15 @@
-// import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:hotel/domain/models/booking_model.dart';
+import 'package:hotel/presentation/screens/home.dart';
+import 'package:hotel/providers/auth_provider.dart';
 import 'package:hotel/providers/booking_criteria.dart';
+import 'package:hotel/providers/booking_provider.dart';
 import 'package:hotel/providers/room_count_provider.dart';
+import 'package:hotel/providers/selected_hotel_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_with_paystack/pay_with_paystack.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingConfirmation extends StatefulWidget {
@@ -83,45 +87,6 @@ class _BookingConfirmationState extends State<BookingConfirmation> {
     );
   }
 
-//  void _proceedToPayment(double totalCostPerNight) async {
-//   try {
-//     final result = await 
-
-//     if (result != null && result == 'success') {
-//       print("Payment successful, saving booking details");
-//       _saveBookingDetails(totalCost);
-//     } else {
-//       print("Payment failed or cancelled: $result");
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(content: Text('Payment was cancelled or failed.')),
-//       );
-//     }
-//   } catch (error) {
-//     print("Error occurred during payment: $error");
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('An error occurred: $error')),
-//     );
-//   }
-// }
-
-
-
-//   void _saveBookingDetails(double totalCost) async {
-//     await FirebaseFirestore.instance.collection('bookings').add({
-//       'hotelName': 'Your Hotel Name', // Replace with actual hotel name
-//       'roomName': widget.roomName,
-//       'checkInDate': widget.bookingData.startDate,
-//       'checkOutDate': widget.bookingData.endDate,
-//       'guestCount': widget.bookingData.guestCount.adults +
-//           widget.bookingData.guestCount.children,
-//       'amountPaid': totalCost,
-//     });
-
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('Booking confirmed and details saved!')),
-//     );
-//   }
-
   @override
   Widget build(BuildContext context) {
     final totalGuests = widget.bookingData.guestCount.adults +
@@ -134,6 +99,10 @@ class _BookingConfirmationState extends State<BookingConfirmation> {
     final totalCostPerNight = widget.roomRate *
         nightsPerStay.inDays *
         roomCountProvider.roomCount.rooms;
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final userId = authProvider.user?.uid;
+    final selectedHotelProvider = Provider.of<SelectedHotelProvider>(context);
+    final String hotelName = selectedHotelProvider.selectedHotelName;
 
     return Scaffold(
       appBar: AppBar(
@@ -489,71 +458,88 @@ class _BookingConfirmationState extends State<BookingConfirmation> {
             const SizedBox(
               height: 8,
             ),
-            ElevatedButton(
-              onPressed: () => {
-                Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => PaypalCheckoutView(
-          sandboxMode: true,
-          clientId: "AfEqt3KjTt-v6qU8LbE4mH8CnYFnN2PxuNbEjSonu2VElYfiuDgL439nNTjU7xMteSLvEi3FqW0vcTD4",
-          secretKey: "EJAsikLjsYVoc7x4QlislzW1H_yboageBoXEA1kGvRb_NSqvSD3fNOCkPDQNw5zQp1a4VXsKLFIw0gzZ",
-          // returnURL: "https://example.com/return", // Replace with a valid return URL
-          // cancelURL: "https://example.com/cancel", // Replace with a valid cancel URL
-          transactions: [
-            {
-              "amount": {
-                "total": totalCostPerNight.toString(),
-                "currency": "USD",
-                "details": {
-                  "subtotal": totalCostPerNight.toString(),
-                  "tax": "0",
-                  "shipping": "0",
-                  "handling_fee": "0",
-                  "shipping_discount": "0",
-                  "insurance": "0"
-                }
-              },
-              
-            }
-          ],
-          note: "Booking payment for ${widget.roomName}",
-            onSuccess: (Map params) async {
-        print("Payment success: $params");
-        // Handle successful payment here
-        Navigator.pop(context, 'success');
-      },
-      onCancel: (Map params) async {
-        print("Payment cancelled: $params");
-        // Handle cancellation here
-        Navigator.pop(context, 'cancel');
-      },
-      onError: (error) async {
-        print("Payment error: $error");
-        // Handle error here
-        Navigator.pop(context, 'error');
-      },
-        ),
-      ),
-    )
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              child: Text(
-                'PROCEED TO PAYMENT',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 12,
-                      color: Colors.white,
-                    ),
-              ),
+           ElevatedButton(
+  onPressed: () async {
+    PayWithPayStack().now(
+      context: context,
+      secretKey: "sk_test_4fee4b862e26f8ba281c62b0fc5110d91895720e",
+      customerEmail: authProvider.user!.email.toString(),
+      reference: DateTime.now().microsecondsSinceEpoch.toString(),
+      amount: "588",
+      currency: "KES",
+      transactionCompleted: () async {
+        var uuid = const Uuid();
+        String id = uuid.v4();
+
+        Booking booking = Booking(
+          userId: userId ?? "",
+          hotelName: hotelName,
+          roomName: widget.roomName,
+          checkIn: widget.bookingData.startDate,
+          checkOut: widget.bookingData.endDate,
+          numGuests: totalGuests,
+          amountPaid: totalCostPerNight,
+          id: id,
+        );
+
+        context.read<BookingProvider>().addBooking(booking);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyHomePage(
+              title: '',
             ),
+          ),
+        );
+      },
+      transactionNotCompleted: () {
+        print("Transaction Not Successful!");
+      },
+      callbackUrl: '',
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Theme.of(context).primaryColor,
+    minimumSize: const Size(double.infinity, 50),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    ),
+  ),
+  child: Text(
+    'PROCEED TO PAYMENT',
+    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+      fontSize: 12,
+      color: Colors.white,
+    ),
+  ),
+)
           ],
         ),
       ),
     );
   }
 }
+
+// var uuid = const Uuid();
+//                 String id = uuid.v4();
+
+//                 Booking booking = Booking(
+//                     userId: userId ?? "",
+//                     hotelName: hotelName,
+//                     roomName: widget.roomName,
+//                     checkIn: widget.bookingData.startDate,
+//                     checkOut: widget.bookingData.endDate,
+//                     numGuests: totalGuests,
+//                     amountPaid: totalCostPerNight,
+//                     id: id);
+
+//                 context.read<BookingProvider>().addBooking(booking);
+
+//                 Navigator.pushReplacement(
+//                     context,
+//                     MaterialPageRoute(
+//                       builder: (context) => const MyHomePage(
+//                         title: '',
+//                       ),
+//                     ));

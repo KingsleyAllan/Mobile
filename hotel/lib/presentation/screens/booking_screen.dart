@@ -51,7 +51,7 @@ class _BookingScreenState extends State<BookingScreen> {
       future: roomProvider!.getRoomsByHotel(selectedHotelId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor,));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {

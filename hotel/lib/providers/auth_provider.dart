@@ -10,7 +10,9 @@ class AuthProvider extends ChangeNotifier {
 
   UserModel? get user => _user;
   String? get errorMessage => _errorMessage;
-  bool get isLoggedIn => _isLoggedIn; // Expose the login status
+  bool get isLoggedIn => _isLoggedIn;
+
+  get currentUser => null; // Expose the login status
 
   Future<void> createUserWithEmailAndPassword(BuildContext context,
       String fname, String lname, String email, String password) async {

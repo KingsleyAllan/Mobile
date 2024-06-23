@@ -62,56 +62,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${user.fname}',
-                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 16, fontWeight: FontWeight.w900),
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white, // Set the background color to white
-                            side: BorderSide(color:  Theme.of(context).primaryColor, width: 1.0), // Border color and width
-                            minimumSize: const Size(150, 50),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero, // Squared edges
-                            ),
-                            ),
-                             child: Text(
-                            'MY ACCOUNT',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(fontSize: 12, color: Theme.of(context).primaryColor),
-                          ),
-                        ),
-                        OutlinedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signup');
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white, // Set the background color to white
-                            side: BorderSide(color:  Theme.of(context).primaryColor, width: 1.0), // Border color and width
-                            minimumSize: const Size(150, 50),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero, // Squared edges
-                            ),
-                            ),
-                             child: Text(
-                            'MY PROFILE',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(fontSize: 12, color: Theme.of(context).primaryColor),
-                          ),
-                        ),               
-                      ]
-                    ),
+                    
                     const SizedBox(height: 24,),
                     Text(
                       'RECOMMENDED DESTINATIONS',
@@ -198,10 +149,31 @@ class ProfileScreen extends StatelessWidget {
                                 fontSize: 30,
                               ),
                             ),
+                            
                           ],
                         ),
                       ),
                     ),
+                    const SizedBox(height: 8,),
+                    ElevatedButton(
+                       onPressed: () {
+                        authProvider.signOut(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red.shade900,
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      child: Text(
+                        'LOGOUT',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 12, color: Colors.white),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -210,7 +182,7 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, '/login');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,

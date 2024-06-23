@@ -13,6 +13,7 @@ import 'package:hotel/presentation/screens/manage_hotels.dart';
 import 'package:hotel/presentation/screens/profile.dart';
 import 'package:hotel/presentation/screens/register.dart';
 import 'package:hotel/presentation/screens/select_date.dart';
+import 'package:hotel/presentation/screens/trips.dart';
 import 'package:hotel/presentation/widgets/bottom_nav.dart';
 import 'package:hotel/providers/admin_provider.dart';
 import 'package:hotel/providers/booking_provider.dart';
@@ -37,24 +38,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // // Set PayPal environment (sandbox)
-  // final paypalCheckoutView = PaypalCheckoutView(
-  //   sandboxMode: true, // Set to 'false' for production
-  //   clientId: 'AfEqt3KjTt-v6qU8LbE4mH8CnYFnN2PxuNbEjSonu2VElYfiuDgL439nNTjU7xMteSLvEi3FqW0vcTD4',
-  //   secretKey: 'EJAsikLjsYVoc7x4QlislzW1H_yboageBoXEA1kGvRb_NSqvSD3fNOCkPDQNw5zQp1a4VXsKLFIw0gzZ',
-  //   transactions: const [
-  //    //define transaction details
-  //   ],
-  //   onSuccess: (Map params) async {
-  //     // Handle successful payment
-  //   },
-  //   onError: (Map params) async {
-  //      // Handle payment error
-  //   },
-  //   onCancel: () {
-  //     // Handle payment cancellationImplement the onSuccess, onError, and onCancel callbacks to handle the respective payment outcomes
-  //   },
-  // );
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => AuthProvider()),
@@ -117,6 +101,7 @@ class Hotel extends StatelessWidget {
             ),
         '/managehotelrooms': (context) => const ManageHotelRooms(),
         '/bookings': (context) => const ContinentSelection(),
+        '/trips': (context) => const Trips(),
         '/selectdate': (context) => const SelectDate()
       },
     );

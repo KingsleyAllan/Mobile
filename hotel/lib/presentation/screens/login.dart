@@ -145,16 +145,16 @@ class _CreateUserScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    TextButton(
-                      onPressed: () {
-                        // Handle "Forgot password?" functionality
-                        // You can use a navigation package like Navigator.pushNamed(context, '/forgotPassword');
-                      },
-                      child: Text(
-                        'Forgot your password?',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14),
-                      ),
-                    ),
+                    // TextButton(
+                    //   onPressed: () {
+                    //     // Handle "Forgot password?" functionality
+                    //     // You can use a navigation package like Navigator.pushNamed(context, '/forgotPassword');
+                    //   },
+                    //   child: Text(
+                    //     'Forgot your password?',
+                    //     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14),
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 20),

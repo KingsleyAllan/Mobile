@@ -76,28 +76,30 @@ class Dashboard extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/adminlogin');
-                    },
-                    child: const Text('Login'),
-                  ),
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                    child: const Text('Sign up'),
-                  ),
-                ),
-              ],
-            )
+            
+
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         onPressed: () {
+            //           Navigator.pushNamed(context, '/adminlogin');
+            //         },
+            //         child: const Text('Login'),
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         onPressed: () {
+            //           Navigator.pushNamed(context, '/signup');
+            //         },
+            //         child: const Text('Sign up'),
+            //       ),
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),

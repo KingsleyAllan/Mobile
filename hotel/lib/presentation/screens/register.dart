@@ -262,10 +262,11 @@ class _CreateUserScreenState extends State<SignUpScreen> {
                   ),
                   child: Text(
                     'CREATE',
-                    // style: Theme.of(context)
-                    //     .textTheme
-                    //     .bodyLarge
-                    //     ?.copyWith(fontSize: 12, color: Colors.white),
+                    
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: 12, color: Colors.white),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -277,7 +278,7 @@ class _CreateUserScreenState extends State<SignUpScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/login'),
+                      onPressed: () => Navigator.pushNamed(context, '/adminlogin'),
                       child: Text('Login',
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(

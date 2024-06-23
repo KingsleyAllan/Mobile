@@ -32,14 +32,14 @@ class _ManageHotelRoomsState extends State<ManageHotelRooms> {
          DataCell(
           Row(
             children: [
-              IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {} // Handle hotel update logic,
-                  ),
-              IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {} // Handle hotel deletion logic,
-                  ),
+              // IconButton(
+              //     icon: const Icon(Icons.edit),
+              //     onPressed: () {} // Handle hotel update logic,
+              //     ),
+              // IconButton(
+              //     icon: const Icon(Icons.delete),
+              //     onPressed: () {} // Handle hotel deletion logic,
+              //     ),
             ],
           ),
         ),

@@ -26,7 +26,6 @@ class _HotelListState extends State<HotelList> {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        automaticallyImplyLeading: false,
         toolbarHeight: 150,
         flexibleSpace: const Image(
           image: AssetImage('assets/images/home page header.png'),
@@ -75,7 +74,7 @@ class _HotelListState extends State<HotelList> {
             );
           } else {
             // By default, show a loading spinner.
-            return CircularProgressIndicator();
+            return CircularProgressIndicator(color: Theme.of(context).primaryColor,);
           }
         },
       ),
